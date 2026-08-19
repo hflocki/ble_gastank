@@ -1,5 +1,5 @@
 {
-  "domainN" = "dim2ha",
+  "domainN": "dim2ha",
   "name": "Gas Anzeige",
   "codeowners": ["@hflocki"],
   "config_flow": true,
