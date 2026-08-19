@@ -1,0 +1,15 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "DIM2HA Gastank einrichten",
+        "description": "Gib die Daten deines Sensors und deiner Gasflasche ein.",
+        "data": {
+          "mac_address": "Bluetooth MAC-Adresse",
+          "tank_capacity": "Flaschenvolumen (Liter)",
+          "fill_stop_percent": "Füllstopp (%)"
+        }
+      }
+    }
+  }
+}
