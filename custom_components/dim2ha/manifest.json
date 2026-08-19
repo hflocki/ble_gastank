@@ -1,6 +1,6 @@
 {
   "domain": "dim2ha",
-  "name": "Rotarex Dimes Fernanzeige ",
+  "name": "Gas Anzeige",
   "codeowners": ["@hflocki"],
   "config_flow": true,
   "dependencies": ["bluetooth"],
