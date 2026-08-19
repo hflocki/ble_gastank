@@ -16,7 +16,7 @@ Eine passive Home Assistant Custom Component zum Auslesen von **Rotarex DIMES / 
 
 ## Erstellte Sensoren
 
-Nach der Einrichtung legt die Integration ein Gerät **DIMES Gastank** mit 3 Entitäten an:
+Nach der Einrichtung legt die Integration ein Gerät **Gas Tank** mit 3 Entitäten an:
 
 * 🔋 **Batterie** (`%`)
 * 📊 **Füllstand** (`%` – skaliert auf den echten Füllstand unter Berücksichtigung des Füllstopps)
