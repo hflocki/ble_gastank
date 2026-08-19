@@ -1,9 +1,6 @@
 {
-  "domain": "dim2ha",
   "name": "Dim2HA",
   "content_in_root": false,
   "render_readme": true,
   "homeassistant": "2023.6.0"
-  "icon": "custom_components/dim2ha/icon.png"
-
 }
