@@ -17,7 +17,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = "dim2ha"
+DOMAIN = "ble_gastank"
 COMPANY_ID = 0xFFFF
 
 
@@ -26,15 +26,15 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up DIM2HA BLE sensors from config entry."""
+    """Set up ble_gastank sensors from config entry."""
     mac_address = entry.data["mac_address"].upper()
     tank_capacity = float(entry.data.get("tank_capacity", 22.0))
     fill_stop_percent = float(entry.data.get("fill_stop_percent", 80.0))
 
     # Erstelle die 3 geforderten Sensoren
-    battery_sensor = DimesBatterySensor(mac_address)
-    percent_sensor = DimesPercentSensor(mac_address, fill_stop_percent)
-    liter_sensor = DimesLiterSensor(mac_address, tank_capacity, fill_stop_percent)
+    battery_sensor = GasBatterySensor(mac_address)
+    percent_sensor = GasPercentSensor(mac_address, fill_stop_percent)
+    liter_sensor = GasLiterSensor(mac_address, tank_capacity, fill_stop_percent)
 
     async_add_entities([battery_sensor, percent_sensor, liter_sensor])
 
@@ -65,8 +65,8 @@ async def async_setup_entry(
     )
 
 
-class DimesBaseSensor(SensorEntity):
-    """Base class for DIM2HA sensors."""
+class GasBaseSensor(SensorEntity):
+    """Base class for ble_gastank sensors."""
 
     _attr_has_entity_name = True
     _attr_should_poll = False
@@ -84,7 +84,7 @@ class DimesBaseSensor(SensorEntity):
         )
 
 
-class DimesBatterySensor(DimesBaseSensor):
+class GasBatterySensor(GasBaseSensor):
     """1. Sensor: Batterie in %."""
 
     _attr_native_unit_of_measurement = PERCENTAGE
@@ -102,7 +102,7 @@ class DimesBatterySensor(DimesBaseSensor):
         self.async_write_ha_state()
 
 
-class DimesPercentSensor(DimesBaseSensor):
+class GasPercentSensor(GasBaseSensor):
     """2. Sensor: Korrigierter Füllstand in % (unter Berücksichtigung des Füllstopps)."""
 
     _attr_native_unit_of_measurement = PERCENTAGE
@@ -124,7 +124,7 @@ class DimesPercentSensor(DimesBaseSensor):
         self.async_write_ha_state()
 
 
-class DimesLiterSensor(DimesBaseSensor):
+class GasLiterSensor(GasBaseSensor):
     """3. Sensor: Füllstand in Liter."""
 
     _attr_native_unit_of_measurement = UnitOfVolume.LITERS
