@@ -1,6 +1,7 @@
 {
-  "name": "ble_gastank",
+  "name": "BLE Gastank",
   "content_in_root": false,
   "render_readme": true,
-  "homeassistant": "2023.6.0"
+  "homeassistant": "2023.6.0",
+  "icon": "custom_components/ble_gastank/icon.png"
 }
