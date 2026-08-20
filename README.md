@@ -1,4 +1,5 @@
-# ble_gastank – Kompatibel mit BLE-Gastanksensoren wie SRG WAVE / DIMES
+# ble_gastank 
+Kompatibel mit BLE-Gastanksensoren wie SRG WAVE / DIMES
 
 Eine passive Home Assistant Custom Component zum Auslesen von Bluetooth-Gastanksensoren über Home Assistant Bluetooth oder ESP32 Bluetooth Proxies.
 
