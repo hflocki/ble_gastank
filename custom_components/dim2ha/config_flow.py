@@ -1,4 +1,4 @@
-"""Config flow for DIM2HA integration."""
+"""Config flow for BLE Gastank integration."""
 
 from __future__ import annotations
 
@@ -10,11 +10,11 @@ from homeassistant.data_entry_flow import FlowResult
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import selector
 
-DOMAIN = "dim2ha"
+DOMAIN = "ble_gastank"
 
 
-class Dim2HAConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for DIM2HA."""
+class GasConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for BLE Gastank."""
 
     VERSION = 1
 
@@ -25,17 +25,22 @@ class Dim2HAConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
 
         if user_input is not None:
-            user_input["mac_address"] = user_input["mac_address"].upper().strip()
+            formatted_mac = user_input["mac_address"].upper().strip()
+            
+            # Verhindert, dass dieselbe MAC-Adresse doppelt angelegt wird
+            await self.async_set_unique_id(formatted_mac.lower())
+            self._abort_if_unique_id_configured()
+
+            user_input["mac_address"] = formatted_mac
+
             return self.async_create_entry(
-                title=f"DIMES Gastank ({user_input['mac_address']})",
+                title=f"BLE Gastank ({formatted_mac})",
                 data=user_input,
             )
 
         data_schema = vol.Schema(
             {
-                vol.Required(
-                    "mac_address", default="00:00:00:00:00:00"
-                ): cv.string,
+                vol.Required("mac_address"): cv.string,
                 vol.Required("tank_capacity", default=22.0): vol.Coerce(float),
                 vol.Required("fill_stop_percent", default=80): selector.NumberSelector(
                     selector.NumberSelectorConfig(
