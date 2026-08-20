@@ -1,6 +1,6 @@
-# Dim2HA – Rotarex DIMES Gas Tank Integration
+# ble_gastank – Kompatibel mit BLE-Gastanksensoren wie SRG WAVE / DIMES
 
-Eine passive Home Assistant Custom Component zum Auslesen von **Rotarex DIMES / SRG WAVE** Bluetooth-Gastanksensoren über Home Assistant Bluetooth oder ESP32 Bluetooth Proxies.
+Eine passive Home Assistant Custom Component zum Auslesen von **Gastanks** Bluetooth-Gastanksensoren über Home Assistant Bluetooth oder ESP32 Bluetooth Proxies.
 
 ![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)
 ![AI Generated](https://img.shields.io/badge/README-AI%20Generated-7A00FF.svg)
@@ -30,16 +30,16 @@ Nach der Einrichtung legt die Integration ein Gerät **Gas Tank** mit 3 Entität
 
 1. Öffne **HACS** in Home Assistant.
 2. Klicke oben rechts auf die **drei Punkte (⋮)** → **Benutzerdefinierte Repositories** (*Custom Repositories*).
-3. Füge die Repository-URL ein: `https://github.com/hflocki/dim2ha`
+3. Füge die Repository-URL ein: `https://github.com/hflocki/ble_gastank`
 4. Wähle als Kategorie **Integration** aus und klicke auf **Hinzufügen**.
-5. Suche nach **Dim2HA**, klicke auf **Herunterladen** und starte Home Assistant neu.
+5. Suche nach **ble_gastank**, klicke auf **Herunterladen** und starte Home Assistant neu.
 
 ---
 
 ## Konfiguration
 
 1. Gehe in Home Assistant zu **Einstellungen** → **Geräte & Dienste** → **Integration hinzufügen**.
-2. Suche nach **Dim2HA**.
+2. Suche nach **ble_gastank**.
 3. Trage deine Werte im Formular ein:
    * **MAC-Adresse:** Bluetooth-Adresse deines Dimes-Sensors (z. B. `00:00:00:00:00:00`)
    * **Flaschenvolumen:** Gesamtes Brutto-Volumen der Flasche in Litern (z. B. `22.0`)
