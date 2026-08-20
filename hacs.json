@@ -1,5 +1,5 @@
 {
-  "name": "Dim2HA",
+  "name": "ble_gastank",
   "content_in_root": false,
   "render_readme": true,
   "homeassistant": "2023.6.0"
