@@ -1,4 +1,4 @@
-"""Sensor platform for DIM2HA BLE Integration."""
+"""Sensor platform for BLE Gastank Integration."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ async def async_setup_entry(
     tank_capacity = float(entry.data.get("tank_capacity", 22.0))
     fill_stop_percent = float(entry.data.get("fill_stop_percent", 80.0))
 
-    # Erstelle die 3 geforderten Sensoren
+    # Erstelle die 3 Sensoren
     battery_sensor = GasBatterySensor(mac_address)
     percent_sensor = GasPercentSensor(mac_address, fill_stop_percent)
     liter_sensor = GasLiterSensor(mac_address, tank_capacity, fill_stop_percent)
@@ -52,7 +52,6 @@ async def async_setup_entry(
         raw_level = mfg_data[2]
 
         if battery <= 100 and raw_level <= 100:
-            # Aktualisiere die 3 Sensoren
             battery_sensor.update_value(battery)
             percent_sensor.update_value(raw_level)
             liter_sensor.update_value(raw_level)
@@ -78,9 +77,9 @@ class GasBaseSensor(SensorEntity):
         self._attr_name = name
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, mac_address)},
-            name="DIMES Gastank",
-            manufacturer="Rotarex",
-            model="SRG WAVE",
+            name="Gastank BLE",
+            manufacturer="Generic BLE",
+            model="BLE Gas Sensor",
         )
 
 
@@ -103,7 +102,7 @@ class GasBatterySensor(GasBaseSensor):
 
 
 class GasPercentSensor(GasBaseSensor):
-    """2. Sensor: Korrigierter Füllstand in % (unter Berücksichtigung des Füllstopps)."""
+    """2. Sensor: Korrigierter Füllstand in % bezogen auf den Füllstopp."""
 
     _attr_native_unit_of_measurement = PERCENTAGE
     _attr_icon = "mdi:gauge"
@@ -112,15 +111,15 @@ class GasPercentSensor(GasBaseSensor):
     def __init__(self, mac_address: str, fill_stop: float) -> None:
         """Initialize percent sensor."""
         super().__init__(mac_address, "level_percent", "Füllstand")
-        self._fill_stop = fill_stop
+        self._fill_stop = fill_stop if fill_stop > 0 else 100.0
 
     @callback
     def update_value(self, raw_level: int) -> None:
-        """Berechnet die echten Prozent bezogen auf den Füllstopp."""
-        # Da 100% Sensor-Rohwert = Füllstopp entspricht (z. B. 80%),
-        # skaliert dieser Sensor den Wert sauber auf die echten 0-100% der Flasche um.
-        calc_percent = (float(raw_level) * (self._fill_stop / 100.0))
-        self._attr_native_value = round(calc_percent, 1)
+        """Skaliert den Rohwert so um, dass der Füllstopp 100% nutzbarer Kapazität entspricht."""
+        usable_percent = (float(raw_level) / self._fill_stop) * 100.0
+        final_value = min(round(usable_percent, 1), 100.0)
+        
+        self._attr_native_value = final_value
         self.async_write_ha_state()
 
 
@@ -135,13 +134,14 @@ class GasLiterSensor(GasBaseSensor):
         """Initialize liter sensor."""
         super().__init__(mac_address, "level_liters", "Füllstand Liter")
         self._capacity = capacity
-        self._fill_stop = fill_stop
+        self._fill_stop = fill_stop if fill_stop > 0 else 100.0
 
     @callback
     def update_value(self, raw_level: int) -> None:
-        """Berechnet den Inhalt direkt in Litern."""
-        # Beispiel 22L Flasche mit 80% Füllstopp -> Max 17.6 L bei 100% Rohwert
+        """Berechnet den Inhalt in Litern basierend auf der Maximalkapazität."""
         max_usable_liters = self._capacity * (self._fill_stop / 100.0)
-        calculated_liters = (float(raw_level) * max_usable_liters) / 100.0
-        self._attr_native_value = round(calculated_liters, 1)
+        calculated_liters = (float(raw_level) / self._fill_stop) * max_usable_liters
+        final_liters = min(round(calculated_liters, 1), round(max_usable_liters, 1))
+
+        self._attr_native_value = final_liters
         self.async_write_ha_state()
