@@ -1,4 +1,4 @@
-"""Initialization for the DIM2HA integration."""
+"""Initialization for the BLE Gastank integration."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
-DOMAIN = "dim2ha"
+DOMAIN = "ble_gastank"
 PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up DIM2HA from a config entry."""
+    """Set up BLE Gastank from a config entry."""
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
