@@ -12,6 +12,8 @@ Eine passive Home Assistant Custom Component zum Auslesen von **Rotarex DIMES / 
 * **Exakte Liter-Berechnung:** Berechnet den reellen Gasinhalt in Litern basierend auf dem eingestellten Flaschenvolumen (z. B. 22 Liter Tankflasche).
 * **Bequeme UI-Konfiguration:** Vollständige Einrichtung direkt über die Home Assistant Benutzeroberfläche (Config Flow).
 
+
+
 ---
 
 ## Erstellte Sensoren
@@ -42,3 +44,9 @@ Nach der Einrichtung legt die Integration ein Gerät **Gas Tank** mit 3 Entität
    * **MAC-Adresse:** Bluetooth-Adresse deines Dimes-Sensors (z. B. `00:00:00:00:00:00`)
    * **Flaschenvolumen:** Gesamtes Brutto-Volumen der Flasche in Litern (z. B. `22.0`)
    * **Füllstopp:** Abschaltschwelle des Füllstopps in % (z. B. `80`)
+
+---
+
+### Disclaimer / Haftungsausschluss
+
+Dieses Projekt steht in keinerlei Verbindung zur Rotarex S.A. oder deren eingetragenen Marken (wie DIMES oder SRG WAVE). Es handelt sich um ein inoffizielles Community-Projekt zur rein passiven Datenverarbeitung für Home Assistant.
