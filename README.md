@@ -13,16 +13,18 @@ Eine passive Home Assistant Custom Component zum Auslesen von Bluetooth-Gastanks
 * **Exakte Liter-Berechnung:** Berechnet den reellen Gasinhalt in Litern basierend auf dem eingestellten Brutto-Flaschenvolumen (z. B. 22 Liter Tankflasche).
 * **Nachträglich anpassbar (Options Flow):** Flaschenvolumen und Füllstopp können jederzeit über die Einstellungen in Home Assistant geändert werden.
 * **Bequeme UI-Konfiguration:** Vollständige Einrichtung direkt über die Home Assistant Benutzeroberfläche.
+* **Rohwert-Sensor: Stellt zusätzlich den unkorrigierten 1:1 Sensorwert zur Verfügung
 
 ---
 
 ## Erstellte Sensoren
 
-Nach der Einrichtung legt die Integration ein Gerät **Gastank BLE** mit 3 Entitäten an:
+Nach der Einrichtung legt die Integration ein Gerät **Gastank BLE** mit 4 Entitäten an:
 
-* 🔋 **Batterie** (`%`)
-* 📊 **Füllstand** (`%` – skaliert auf die nutzbare Kapazität bezogen auf den Füllstopp)
-* ⛽ **Füllstand Liter** (`L` – berechneter Inhalt in Litern)
+* Batterie (%)
+* Füllstand Rohwert (% – unkorrigierter 1:1 Wert des Sensors)
+* Füllstand (% – skaliert auf die nutzbare Kapazität bezogen auf den Füllstopp)
+* Füllstand Liter (L – berechneter Inhalt in Litern)
 
 ---
 
