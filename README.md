@@ -1,3 +1,4 @@
+<img src="/logo/icon.png" alt="BLE_Gastank Logo" width="150">
 # ble_gastank 
 Kompatibel mit BLE-Gastanksensoren wie SRG WAVE / DIMES
 
