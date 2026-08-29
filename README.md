@@ -61,3 +61,11 @@ oder
 ### Disclaimer / Haftungsausschluss
 
 Dieses Projekt steht in keinerlei Verbindung zur Rotarex S.A. oder deren eingetragenen Marken (wie DIMES oder SRG WAVE). Es handelt sich um ein inoffizielles Community-Projekt zur rein passiven Datenverarbeitung für Home Assistant.
+
+
+---
+
+
+<a href="https://www.buymeacoffee.com/hflocki" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60" width="217">
+</a>
