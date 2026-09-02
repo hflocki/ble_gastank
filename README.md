@@ -66,6 +66,20 @@ Dieses Projekt steht in keinerlei Verbindung zur Rotarex S.A., Truma Gerätetech
 
 ---
 
+---
+
+## Credits & Danksagung
+
+* Ein besonderer Dank geht an **Gerald** für die Bereitstellung und Ausarbeitung der Truma LevelControl Einbindung und der Dekodierungslogik.
+
+---
+
+### Disclaimer / Haftungsausschluss
+
+Dieses Projekt steht in keinerlei Verbindung zur Rotarex S.A., Truma Gerätetechnik GmbH & Co. KG oder deren eingetragenen Marken (wie DIMES, SRG WAVE oder Truma LevelControl). Es handelt sich um ein inoffizielles Community-Projekt zur Datenverarbeitung für Home Assistant.
+
+---
+
 <a href="https://www.buymeacoffee.com/hflocki" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60" width="217">
 </a>
