@@ -18,7 +18,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 DOMAIN = "ble_gastank"
-COMPANY_ID = 0xFFFF  # GGf. auf die korrekte BLE Manufacturer ID anpassen
+COMPANY_ID = 0xFFFF  # Ggf. auf die korrekte BLE Manufacturer ID anpassen
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -137,7 +137,8 @@ class GasTankLitersSensor(BaseGasSensor):
 
     _attr_device_class = SensorDeviceClass.VOLUME
     _attr_native_unit_of_measurement = UnitOfVolume.LITERS
-    _attr_state_class = SensorStateClass.MEASUREMENT
+    # Korrektur: TOTAL anstelle von MEASUREMENT für DeviceClass VOLUME
+    _attr_state_class = SensorStateClass.TOTAL
 
     def __init__(
         self, mac_address: str, key: str, name: str, tank_capacity: float, fill_stop_percent: float
