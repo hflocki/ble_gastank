@@ -3,9 +3,10 @@
     "step": {
       "user": {
         "title": "BLE Gastank einrichten",
-        "description": "Gib die Bluetooth MAC-Adresse und die Daten deiner Gasflasche ein.\n\n*Hinweis zum Füllstopp:* Falls deine Flasche keinen mechanischen Füllstopp besitzt, gib bitte **100** % ein.",
+        "description": "Wähle deinen Sensortyp und gib die Bluetooth MAC-Adresse sowie die Daten deiner Gasflasche ein.\n\n*Hinweis zum Füllstopp:* Falls deine Flasche keinen mechanischen Füllstopp besitzt, gib bitte **100** % ein.",
         "data": {
           "mac_address": "MAC-Adresse (z. B. AA:BB:CC:11:22:33)",
+          "sensor_type": "Sensortyp",
           "tank_capacity": "Flaschenvolumen (Brutto in Liter)",
           "fill_stop_percent": "Füllstopp (in %)"
         }
@@ -16,8 +17,9 @@
     "step": {
       "init": {
         "title": "BLE Gastank Einstellungen anpassen",
-        "description": "Passe hier das Flaschenvolumen oder den Füllstopp an (100% angeben, falls kein Füllstopp vorhanden).",
+        "description": "Passe hier das Flaschenvolumen, den Füllstopp oder den Sensortyp an.",
         "data": {
+          "sensor_type": "Sensortyp",
           "tank_capacity": "Flaschenvolumen (Brutto in Liter)",
           "fill_stop_percent": "Füllstopp (in %)"
         }

@@ -3,15 +3,20 @@
 from __future__ import annotations
 
 from typing import Any
-import voluptuous as vol
 
-from homeassistant import config_entries
-from homeassistant.data_entry_flow import FlowResult
-from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
+import voluptuous as vol
+from homeassistant import config_entries
+from homeassistant.core import callback
+from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 
-DOMAIN = "ble_gastank"
+from .const import (
+    CONF_SENSOR_TYPE,
+    DOMAIN,
+    SENSOR_TYPE_DIMES,
+    SENSOR_TYPES,
+)
 
 
 class GasConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -49,6 +54,17 @@ class GasConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = vol.Schema(
             {
                 vol.Required("mac_address"): cv.string,
+                vol.Required(
+                    CONF_SENSOR_TYPE, default=SENSOR_TYPE_DIMES
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[
+                            {"label": label, "value": val}
+                            for val, label in SENSOR_TYPES.items()
+                        ],
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                    )
+                ),
                 vol.Required("tank_capacity", default=22.0): vol.Coerce(float),
                 vol.Required("fill_stop_percent", default=80): selector.NumberSelector(
                     selector.NumberSelectorConfig(
@@ -82,22 +98,38 @@ class GasOptionsFlowHandler(config_entries.OptionsFlow):
     ) -> FlowResult:
         """Manage the options."""
         if user_input is not None:
-            # Aktualisiert die Daten im Config Entry
             self.hass.config_entries.async_update_entry(
                 self.config_entry,
                 data={**self.config_entry.data, **user_input},
             )
-            # Lädt die Integration neu, damit neue Werte sofort greifen
             await self.hass.config_entries.async_reload(self.config_entry.entry_id)
             return self.async_create_entry(title="", data={})
 
         current_capacity = self.config_entry.data.get("tank_capacity", 22.0)
         current_fill_stop = self.config_entry.data.get("fill_stop_percent", 80)
+        current_sensor_type = self.config_entry.data.get(
+            CONF_SENSOR_TYPE, SENSOR_TYPE_DIMES
+        )
 
         data_schema = vol.Schema(
             {
-                vol.Required("tank_capacity", default=current_capacity): vol.Coerce(float),
-                vol.Required("fill_stop_percent", default=current_fill_stop): selector.NumberSelector(
+                vol.Required(
+                    CONF_SENSOR_TYPE, default=current_sensor_type
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=[
+                            {"label": label, "value": val}
+                            for val, label in SENSOR_TYPES.items()
+                        ],
+                        mode=selector.SelectSelectorMode.DROPDOWN,
+                    )
+                ),
+                vol.Required("tank_capacity", default=current_capacity): vol.Coerce(
+                    float
+                ),
+                vol.Required(
+                    "fill_stop_percent", default=current_fill_stop
+                ): selector.NumberSelector(
                     selector.NumberSelectorConfig(
                         min=1,
                         max=100,
