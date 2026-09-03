@@ -183,7 +183,8 @@ class GasTankLitersSensor(BaseGasSensor):
 
     _attr_device_class = SensorDeviceClass.VOLUME
     _attr_native_unit_of_measurement = UnitOfVolume.LITERS
-    _attr_state_class = SensorStateClass.MEASUREMENT
+    # Korrektur: TOTAL anstelle von MEASUREMENT für DeviceClass VOLUME
+    _attr_state_class = SensorStateClass.TOTAL
 
     def __init__(
         self,
