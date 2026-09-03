@@ -6,5 +6,5 @@
   "dependencies": ["bluetooth"],
   "documentation": "https://github.com/hflocki/ble_gastank",
   "iot_class": "local_push",
-  "version": "1.0.6"
+  "version": "1.1.0"
 }
